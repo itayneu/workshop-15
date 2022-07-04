@@ -21,15 +21,27 @@
 // 2.If an exception occurs, simply return null
 // 3.To test the function's result, see file index.js
 const calculateBalance = (data) => {
-    // TODO: implement me!
-    // TODO: implement me!
-    // TODO: implement me!
-    // TODO: implement me!
+  try {
+    if (!Array.isArray(data)) throw error;
+    if (data.length === 0) return "0.00";
+    let sum = 0.0;
 
-    return "0.00";
-    // TODO: return null if an error occurs
-}
+    data.forEach((element) => {
+      if ("balance" in element) {
+        const currentBalance = parseFloat(element.balance);
+        if (isNaN(currentBalance)) throw error;
+        sum += currentBalance;
+      } else throw error;
+    });
+
+    return parseFloat(sum / data.length)
+      .toFixed(2)
+      .toString();
+  } catch (e) {
+    return null;
+  }
+};
 
 module.exports = {
-    calculateBalance
-}
+  calculateBalance,
+};
